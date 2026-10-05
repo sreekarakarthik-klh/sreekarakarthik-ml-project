@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient Health Risk Assessment System</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0f7fa, #e8eaf6);
+    color: #263238;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(90deg, #00695c, #00897b);
+    color: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: bold;
+}
+
+/* HERO */
+.hero {
+    padding: 70px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.hero h1 {
+    font-size: 46px;
+    color: #00695c;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.start-btn {
+    padding: 15px 30px;
+    background: #00695c;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.start-btn:hover {
+    background: #004d40;
+}
+
+.health-icon {
+    font-size: 150px;
+}
+
+/* FEATURES */
+.features {
+    padding: 40px 8%;
+    text-align: center;
+}
+
+.features h2 {
+    color: #00695c;
+    margin-bottom: 30px;
+}
+
+.feature-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.feature {
+    background: white;
+    width: 250px;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.feature h3 {
+    margin-bottom: 10px;
+    color: #00796b;
+}
+
+/* FORM SECTION */
+#assessment {
+    display: none;
+    padding: 50px 8%;
+}
+
+.form-container {
+    max-width: 850px;
+    margin: auto;
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #00695c;
+    margin-bottom: 10px;
+}
+
+.form-description {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+input, select {
+    padding: 12px;
+    border: 1px solid #b0bec5;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #00897b;
+}
+
+.assess-btn {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+    border: none;
+    background: #00695c;
+    color: white;
+    font-size: 17px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.assess-btn:hover {
+    background: #004d40;
+}
+
+/* RESULT */
+#result {
+    display: none;
+    padding: 40px 8%;
+}
+
+.result-container {
+    max-width: 850px;
+    margin: auto;
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.result-container h2 {
+    color: #00695c;
+    margin-bottom: 20px;
+}
+
+.risk-circle {
+    width: 150px;
+    height: 150px;
+    margin: 20px auto;
+    border-radius: 50%;
+    background: #e0f2f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 10px solid #00897b;
+}
+
+.risk-percentage {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+#riskLevel {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 15px;
+}
+
+.risk-factors {
+    text-align: left;
+    margin-top: 25px;
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.risk-factors h3 {
+    color: #00695c;
+    margin-bottom: 10px;
+}
+
+.risk-factors li {
+    margin: 8px 0;
+}
+
+.recommendation {
+    margin-top: 20px;
+    padding: 20px;
+    background: #e0f7fa;
+    border-radius: 10px;
+    line-height: 1.6;
+}
+
+.back-btn {
+    margin-top: 25px;
+    padding: 12px 25px;
+    border: none;
+    background: #455a64;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 50px;
+    padding: 25px;
+    text-align: center;
+    background: #263238;
+    color: white;
+}
+
+/* MOBILE */
+@media(max-width: 700px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 35px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    nav {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🏥 HealthRisk</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#assessment">Assessment</a>
+    </nav>
+</header>
+
+<!-- HOME -->
+<section class="hero" id="home">
+
+    <div class="hero-text">
+
+        <h1>Patient Health Risk Assessment System</h1>
+
+        <p>
+            A simple health assessment platform that analyzes basic
+            patient information and lifestyle factors to provide an
+            estimated health-risk level.
+        </p>
+
+        <button class="start-btn" onclick="startAssessment()">
+            Start Health Assessment
+        </button>
+
+    </div>
+
+    <div class="health-icon">
+        🩺
+    </div>
+
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+
+    <h2>System Features</h2>
+
+    <div class="feature-container">
+
+        <div class="feature">
+            <div class="feature-icon">👤</div>
+            <h3>Patient Profile</h3>
+            <p>Enter basic patient information securely.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">❤️</div>
+            <h3>Health Assessment</h3>
+            <p>Evaluate important health and lifestyle factors.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">📊</div>
+            <h3>Risk Analysis</h3>
+            <p>Calculate an estimated health-risk score.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">📄</div>
+            <h3>Health Report</h3>
+            <p>View the assessment result and recommendations.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ASSESSMENT -->
+<section id="assessment">
+
+    <div class="form-container">
+
+        <h2>Patient Health Assessment</h2>
+
+        <p class="form-description">
+            Enter the patient's information below.
+        </p>
+
+        <form id="healthForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Patient Name</label>
+                    <input type="text" id="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="age" min="1" max="120" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Gender</label>
+
+                    <select id="gender" required>
+                        <option value="">Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Weight (kg)</label>
+                    <input type="number" id="weight" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Height (cm)</label>
+                    <input type="number" id="height" min="50" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Blood Pressure (Systolic)</label>
+                    <input type="number" id="bp" min="50" max="250" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Blood Sugar (mg/dL)</label>
+                    <input type="number" id="sugar" min="40" max="500" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Heart Rate (BPM)</label>
+                    <input type="number" id="heartRate" min="30" max="200" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Smoking</label>
+
+                    <select id="smoking" required>
+                        <option value="">Select</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Regular Exercise</label>
+
+                    <select id="exercise" required>
+                        <option value="">Select</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+
+                    <label>Family History of Major Disease</label>
+
+                    <select id="familyHistory" required>
+                        <option value="">Select</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button type="submit" class="assess-btn">
+                🔍 Assess Health Risk
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- RESULT -->
+<section id="result">
+
+    <div class="result-container">
+
+        <h2>Health Risk Assessment Result</h2>
+
+        <p id="patientName"></p>
+
+        <div class="risk-circle">
+
+            <div class="risk-percentage" id="percentage">
+                0%
+            </div>
+
+            <small>Risk Score</small>
+
+        </div>
+
+        <div id="riskLevel"></div>
+
+        <div class="risk-factors">
+
+            <h3>Identified Risk Factors</h3>
+
+            <ul id="factors"></ul>
+
+        </div>
+
+        <div class="recommendation">
+
+            <h3>General Recommendation</h3>
+
+            <p id="recommendation"></p>
+
+        </div>
+
+        <button class="back-btn" onclick="newAssessment()">
+            New Assessment
+        </button>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>
+        © 2026 Patient Health Risk Assessment System
+    </p>
+
+    <p>
+        For educational/screening purposes only. Not a medical diagnosis.
+    </p>
+</footer>
+
+
+<script>
+
+function startAssessment() {
+
+    document.getElementById("assessment").style.display = "block";
+
+    document.getElementById("assessment")
+        .scrollIntoView({ behavior: "smooth" });
+}
+
+
+document.getElementById("healthForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let name = document.getElementById("name").value;
+
+    let age = Number(document.getElementById("age").value);
+
+    let weight = Number(document.getElementById("weight").value);
+
+    let height = Number(document.getElementById("height").value);
+
+    let bp = Number(document.getElementById("bp").value);
+
+    let sugar = Number(document.getElementById("sugar").value);
+
+    let heartRate = Number(document.getElementById("heartRate").value);
+
+    let smoking = document.getElementById("smoking").value;
+
+    let exercise = document.getElementById("exercise").value;
+
+    let familyHistory =
+        document.getElementById("familyHistory").value;
+
+
+    /* BMI CALCULATION */
+
+    let heightMeters = height / 100;
+
+    let bmi = weight / (heightMeters * heightMeters);
+
+    bmi = bmi.toFixed(1);
+
+
+    /* RISK CALCULATION */
+
+    let score = 0;
+
+    let factors = [];
+
+
+    // AGE
+
+    if(age >= 60) {
+
+        score += 20;
+
+        factors.push("Age is 60 years or above.");
+
+    }
+
+    else if(age >= 45) {
+
+        score += 10;
+
+        factors.push("Age is above 45 years.");
+
+    }
+
+
+    // BMI
+
+    if(bmi >= 30) {
+
+        score += 20;
+
+        factors.push("BMI indicates obesity.");
+
+    }
+
+    else if(bmi >= 25) {
+
+        score += 10;
+
+        factors.push("BMI is above the normal range.");
+
+    }
+
+
+    // BLOOD PRESSURE
+
+    if(bp >= 140) {
+
+        score += 20;
+
+        factors.push("Systolic blood pressure is elevated.");
+
+    }
+
+    else if(bp >= 130) {
+
+        score += 10;
+
+        factors.push("Blood pressure is above the normal range.");
+
+    }
+
+
+    // BLOOD SUGAR
+
+    if(sugar >= 126) {
+
+        score += 20;
+
+        factors.push("Blood sugar value is elevated.");
+
+    }
+
+    else if(sugar >= 100) {
+
+        score += 10;
+
+        factors.push("Blood sugar is above the normal range.");
+
+    }
+
+
+    // HEART RATE
+
+    if(heartRate > 100 || heartRate < 60) {
+
+        score += 10;
+
+        factors.push("Heart rate is outside the typical resting range.");
+
+    }
+
+
+    // SMOKING
+
+    if(smoking === "yes") {
+
+        score += 10;
+
+        factors.push("Smoking is reported.");
+
+    }
+
+
+    // EXERCISE
+
+    if(exercise === "no") {
+
+        score += 10;
+
+        factors.push("Regular exercise is not reported.");
+
+    }
+
+
+    // FAMILY HISTORY
+
+    if(familyHistory === "yes") {
+
+        score += 10;
+
+        factors.push("Family history of major disease is reported.");
+
+    }
+
+
+    /* LIMIT SCORE */
+
+    if(score > 100) {
+
+        score = 100;
+
+    }
+
+
+    /* RISK LEVEL */
+
+    let riskLevel = "";
+
+    let recommendation = "";
+
+
+    if(score < 30) {
+
+        riskLevel = "LOW RISK";
+
+        recommendation =
+            "Maintain a balanced diet, regular physical activity, " +
+            "adequate sleep and routine health check-ups.";
+
+    }
+
+    else if(score < 60) {
+
+        riskLevel = "MODERATE RISK";
+
+        recommendation =
+            "Consider improving lifestyle habits and discuss " +
+            "the assessment results with a qualified healthcare professional.";
+
+    }
+
+    else {
+
+        riskLevel = "HIGH RISK";
+
+        recommendation =
+            "The screening score indicates several risk factors. " +
+            "Consider consulting a qualified healthcare professional " +
+            "for appropriate evaluation.";
+
+    }
+
+
+    /* NO FACTORS */
+
+    if(factors.length === 0) {
+
+        factors.push("No major risk factors identified by this screening.");
+
+    }
+
+
+    /* DISPLAY RESULT */
+
+    document.getElementById("patientName").innerHTML =
+        "<strong>Patient:</strong> " + name +
+        " | <strong>BMI:</strong> " + bmi;
+
+
+    document.getElementById("percentage").innerText =
+        score + "%";
+
+
+    document.getElementById("riskLevel").innerText =
+        riskLevel;
+
+
+    let factorList = document.getElementById("factors");
+
+    factorList.innerHTML = "";
+
+
+    factors.forEach(function(factor) {
+
+        let li = document.createElement("li");
+
+        li.innerText = factor;
+
+        factorList.appendChild(li);
+
+    });
+
+
+    document.getElementById("recommendation").innerText =
+        recommendation;
+
+
+    /* SHOW RESULT */
+
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("result")
+        .scrollIntoView({ behavior: "smooth" });
+
+});
+
+
+function newAssessment() {
+
+    document.getElementById("healthForm").reset();
+
+    document.getElementById("result").style.display = "none";
+
+    document.getElementById("assessment").style.display = "block";
+
+    document.getElementById("assessment")
+        .scrollIntoView({ behavior: "smooth" });
+
+}
+
+</script>
+
+</body>
+</html>
